@@ -6,15 +6,10 @@ EAPI=8
 
 DESCRIPTION="Setup Lifestream for it's desired task"
 
-SRC_URI+="https://github.com/immolo/lifestream-tools/archive/refs/tags/0.1.tar.gz
-		-> lifestrean-0.1.tar.gz"
-
 #IUSE="containers desktop dev extras laptop games printers virt"
 
 SLOT="0"
 KEYWORDS="amd64"
-
-
 
 RDEPEND="
 	acct-user/lifestream
@@ -40,6 +35,10 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 BDEPEND="${RDEPEND}"
 
+S="${WORKDIR}"
+
 src_install() {
-		doconfd display-manager
+		mkdir /etc/lightdm.conf.d
+		insinto /etc/lightdm.conf.d
+		doins "${FILESDIR}"/012-autologin-mate.conf
 }
